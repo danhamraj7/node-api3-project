@@ -20,7 +20,7 @@ router.post("/", validateUser, (req, res) => {
     });
 });
 
-// post  to a user id
+// create a post  to a user id
 router.post("/:id/posts", validateUserId, validatePost, (req, res) => {
   const id = req.params.id;
   const newPost = req.body;
@@ -43,8 +43,6 @@ router.post("/:id/posts", validateUserId, validatePost, (req, res) => {
       });
     });
 });
-
-//=================================================================
 
 // get all users
 router.get("/", (req, res) => {
