@@ -20,23 +20,31 @@ router.post("/", validateUser, (req, res) => {
     });
 });
 
-// make a post assigned by user id
+// post  to a user id
 router.post("/:id/posts", validateUserId, validatePost, (req, res) => {
-  // do your magic!
   const id = req.params.id;
-  userDb
-    .insert({ ...req.body, user_id: id })
-    .then((user) => {
-      res.status(201).json(user);
+  const newPost = req.body;
+  const postWithId = { ...newPost, user_id: id };
+  console.log(postWithId);
+  posts
+    .insert(postWithId)
+    .then((post) => {
+      if (post) {
+        res.status(200).json(post);
+      } else
+        res
+          .status(404)
+          .json({ message: "The post with the specified ID does not exist." });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({
-        errorMessage: "Error adding users.",
-        err,
+      res.status(400).json({
+        errorMessage: "Please provide text for the comment.",
       });
     });
 });
+
+//=================================================================
 
 // get all users
 router.get("/", (req, res) => {
