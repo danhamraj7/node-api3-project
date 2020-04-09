@@ -100,7 +100,7 @@ router.delete("/:id", validateUserId, (req, res) => {
   const id = req.params.id;
   userDb.remove(id).then((user) => {
     res.status(200).json({
-      message: "User has been removed",
+      message: `${user} user has been removed`,
     });
   });
 });

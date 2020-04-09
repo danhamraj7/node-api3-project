@@ -5,7 +5,7 @@ const server = express();
 
 //routers
 const userRouter = require("../users/userRouter");
-//const postRouter = require("./posts/postRouter");
+const postRouter = require("../posts/postRouter");
 
 server.use(logger);
 server.use(helmet());
@@ -18,7 +18,7 @@ server.get("/", (req, res) => {
 });
 
 server.use("/api/users", userRouter);
-//server.use("/api/posts", postRouter);
+server.use("/api/posts", postRouter);
 
 function logger(req, res, next) {
   const { method, originalUrl } = req;
